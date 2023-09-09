@@ -1,10 +1,6 @@
-export type FaqsType = {
-    id: number,
-    question: string,
-    answer: string,
-}
+import { FaqsType } from "types"
 
-export const faqsData: FaqsType[] = [
+const faqsData: FaqsType[] = [
     {
         "id": 1,
         "question": "¿Cuántos comics tienen?",
@@ -31,3 +27,5 @@ export const faqsData: FaqsType[] = [
         "answer": "Nuestras compras aceptan devoluciones siempre y cuando el comic se encuentre en su envoltorio original, ya que de otra forma pierden el valor de reventa. Si desea devolverlo y se encuentra en las mismas condiciones en las que fue enviado, comuníquese con el 11-5555-0001 para resolver la devolución."
     }
 ]
+
+export default faqsData;
