@@ -1,126 +1,163 @@
-export interface Result {
-    id: string;
+export type ComicResponse = {
+    code: number | string;
+    status: string;
+    copyright: string;
+    attributionText: string;
+    attributionHTML: string;
+    etag: string;
+    data: {
+        offset: number;
+        limit: number;
+        total: number;
+        count: number;
+        results: Comic[];
+    };
+}
+
+export type Comic = {
+    id: number;
     digitalId: number;
     title: string;
     issueNumber: number;
     variantDescription: string;
-    description: null | string;
+    description: string | null;
     modified: string;
     isbn: string;
     upc: string;
-    diamondCode: DiamondCode;
+    diamondCode: string;
     ean: string;
     issn: string;
     format: string;
     pageCount: number;
-    textObjects: TextObject[];
+    textObjects: TextObjects[] | [];
     resourceURI: string;
-    urls: URL[];
-    series: Series;
-    variants: Series[];
-    collections: any[];
-    collectedIssues: Series[];
-    dates: DateElement[];
+    urls: Link[];
+    series: Item;
+    variants: Item[];
+    collections: Item[] | [];
+    collectedIssues: Item[] | [];
+    dates: Date[];
     prices: Price[];
     price: number;
     oldPrice: number;
-    stock:number;
+    stock: number;
     thumbnail: Thumbnail;
-    images: Thumbnail[];
-    creators: Creators;
-    characters: Characters;
-    stories: Stories;
-    events: Characters;
+    images: Link[] | [];
+    creators: Summary;
+    characters: Summary;
+    stories: Summary;
+    events: Summary;
 }
 
-export interface Characters {
+export type CharacterResponse = {
+    code: number | string;
+    status: string;
+    copyright: string;
+    attributionText: string;
+    attributionHTML: string;
+    etag: string;
+    data: {
+        offset: number;
+        limit: number;
+        total: number;
+        count: number;
+        results: Character[];
+    };
+}
+
+export type Character = {
+    id: number;
+    name: string;
+    description: string | null;
+    modified: Date | string;
+    thumbnail: Thumbnail;
+    resourceURI: string;
+    comics: Summary;
+    series: Summary;
+    stories: Summary;
+    events: Summary;
+    urls: Link[];
+}
+
+export type Summary = {
     available: number;
     collectionURI: string;
-    items: Series[];
+    items: Item[] | [];
     returned: number;
 }
 
-export interface Series {
+export type Item = {
     resourceURI: string;
     name: string;
+    type?: "cover" | "interiorStory" | "promo" | string;
+    role?:
+    | "editor"
+    | "writer"
+    | "penciller"
+    | "penciller (cover)"
+    | "colorist"
+    | "inker"
+    | "penciller (cover) "
+    | "letterer"
+    | string;
 }
 
-export interface Creators {
-    available: number;
-    collectionURI: string;
-    items: CreatorsItem[];
-    returned: number;
-}
-
-export interface CreatorsItem {
-    resourceURI: string;
-    name: string;
-    role: string;
-}
-
-export interface DateElement {
-    type: DateType;
-    date: string;
-}
-
-export enum DateType {
-    DigitalPurchaseDate = "digitalPurchaseDate",
-    FocDate = "focDate",
-    OnsaleDate = "onsaleDate",
-    UnlimitedDate = "unlimitedDate",
-}
-
-export enum DiamondCode {
-    Empty = "",
-    Jul190068 = "JUL190068",
-}
-
-export interface Thumbnail {
-    path: string;
-    extension: Extension;
-}
-
-export enum Extension {
-    Jpg = "jpg",
-}
-
-export interface Price {
-    type: PriceType;
-    price: number;
-}
-
-export enum PriceType {
-    DigitalPurchasePrice = "digitalPurchasePrice",
-    PrintPrice = "printPrice",
-}
-
-export interface Stories {
-    available: number;
-    collectionURI: string;
-    items: StoriesItem[];
-    returned: number;
-}
-
-export interface StoriesItem {
-    resourceURI: string;
-    name: string;
-    type: ItemType;
-}
-
-export enum ItemType {
-    Cover = "cover",
-    InteriorStory = "interiorStory",
-    Promo = "promo",
-}
-
-export interface TextObject {
-    type: string;
-    language: string;
-    text: string;
-}
-
-export interface URL {
-    type: string;
+export type Link = {
+    type: "detail" | "comiclink" | "purchase" | string;
     url: string;
 }
 
+export type Date = {
+    type: "onsaleDate" | "focDate" | string;
+    date: string;
+}
+
+export type Price = {
+    type: "printPrice" | string;
+    price: number;
+}
+
+export type Thumbnail  = {
+    path: string;
+    extension: "jpg" | string;
+}
+
+export type TextObjects = {
+    type: "issue_solicit_text" | string;
+    language: "en-us" | string;
+    text: string;
+}
+
+export type ICheckout = {
+    customer: Customer;
+    card: Card;
+    order: Order;
+};
+
+export type Card = {
+    number: string;
+    cvc: string;
+    expDate: string;
+    nameOnCard: string;
+}
+
+export type Order = {
+    name: string;
+    image: string;
+    price: number;
+}
+
+export type Address = {
+    address1: string;
+    address2: string | null;
+    city: string;
+    state: string;
+    zipCode: string;
+}
+
+export type Customer = {
+    name: string;
+    lastname: string;
+    email: string;
+    address: Address;
+}

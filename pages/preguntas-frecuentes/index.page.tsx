@@ -1,8 +1,9 @@
-
-import FaqAccordion from 'components/faqs/faqAccordion'
 import BodySingle from 'components/layouts/body/single/body-single'
+import FaqAccordion from 'components/faqs/FaqAccordion'
+
 import { NextPage } from 'next'
-import { FaqsType } from 'types'
+import { FaqsType } from 'types/faqs'
+
 
 interface Props{
   faqs: FaqsType[]
