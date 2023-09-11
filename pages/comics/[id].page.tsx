@@ -10,53 +10,53 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Item } from '../../types/marvelAPI';
 import Link from "@mui/material/Link";
-
 
 interface Props {
     comic: Comic;
 }
 
-
-const ComicPage: NextPage <Props>  = ({comic}) => {
+const ComicPage: NextPage <Props>  = ({comic}) => { 
+    const perCent: number = parseInt(((comic?.oldPrice - comic?.price) / comic?.oldPrice * 100).toString(), 10);
 
     return (
         <>
         <Card>
             <CardMedia
             component="img"
-            alt="Comic"
+            alt={comic?.title}
             width={400}
-            height={800}
+            height={700}
             image={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}>
             </CardMedia>
         </Card>
         <Card>
-        <CardContent>
-            <Typography variant="h5" component="div" align='center'>{comic?.title}</Typography>
-            <Typography>${comic?.oldPrice}</Typography>
-            <Typography>${comic?.price}</Typography>
-            <Button>COMPRAR</Button>
-            <Accordion>
+        <CardContent >
+            <Typography>{comic?.series.name}</Typography>
+            <Typography variant="h5" component="div" align='center' style={{ marginTop: '25px' }}>{comic?.title}</Typography>
+            <Typography style={{ textDecoration: 'line-through', marginTop: '25px'}}>Antes ${comic?.oldPrice}</Typography>
+            <Typography style={{ color: 'red' }}>{perCent} % OFF</Typography>
+            <Typography variant="h5" style={{ marginTop: '25px' }}>${comic?.price}</Typography>
+            <Button style={{ marginTop: '25px' }}variant="contained">COMPRAR</Button>
+            <Accordion style={{ marginTop: '25px' }}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
-                                <Typography>Descripcion</Typography>
+                                <Typography>Descripción</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 {comic?.description}
                             </AccordionDetails>
                         </Accordion>
-            <Accordion>
+            <Accordion style={{ marginTop: '25px' }}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
-                                <Typography>Characters</Typography>
+                                <Typography>Personajes</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <ul>
@@ -74,13 +74,10 @@ const ComicPage: NextPage <Props>  = ({comic}) => {
 
                             </AccordionDetails>
                         </Accordion>
-                        
         </CardContent>
         </Card>
         </>
-        
     )
-
 }
 
     export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -104,7 +101,5 @@ const ComicPage: NextPage <Props>  = ({comic}) => {
           fallback: true,
         }
       }
-
-
 
 export default ComicPage

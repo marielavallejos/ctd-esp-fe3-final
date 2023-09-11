@@ -1,4 +1,4 @@
-import { FaqsType } from "types"
+import { FaqsType } from "types/faqs";
 
 const faqsData: FaqsType[] = [
     {

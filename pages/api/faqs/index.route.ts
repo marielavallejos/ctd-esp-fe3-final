@@ -1,6 +1,7 @@
 import faqsData from 'dh-marvel/components/faqs/faqsData';
 import {NextApiRequest, NextApiResponse} from 'next'
-import { FaqsType } from 'types';
+import { FaqsType } from 'types/faqs';
+
 
 type Data = FaqsType[] | {messege: string}
 

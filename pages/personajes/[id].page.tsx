@@ -2,6 +2,7 @@ import { getCharacter } from 'services/marvel/marvel.service';
 import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import { Character } from 'types/marvelAPI';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import BodySingle from 'components/layouts/body/single/body-single';
 
 interface Props {
     character: Character;
@@ -12,7 +13,7 @@ const CharacterPage: NextPage<Props> = ({character}) => {
         return <div>Personaje no encontrado</div>;
     }
     return (
-        <>
+        <BodySingle>
         <Card sx={{ marginTop: 10, padding: 3, gap: 10, height: "fit-content" }}>
         <CardMedia
             component="img"
@@ -34,7 +35,7 @@ const CharacterPage: NextPage<Props> = ({character}) => {
         
         </CardContent>
         </Card>
-        </>
+        </BodySingle>
     );
 }
 
