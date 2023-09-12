@@ -1,41 +1,25 @@
 import { getCharacter } from 'services/marvel/marvel.service';
 import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import { Character } from 'types/marvelAPI';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import BodySingle from 'components/layouts/body/single/body-single';
-
+import Head from 'next/head';
+import CharacterCard from 'dh-marvel/components/Character/CharacterCard';
 interface Props {
     character: Character;
 }
 
 const CharacterPage: NextPage<Props> = ({character}) => {
-    if (!character) {
-        return <div>Personaje no encontrado</div>;
-    }
     return (
+        <>
+        <Head>
+        <title>MARVEL COMICS</title>
+        <meta name="description" content={`Character ${character?.name} from Marvel`}/>
+        <meta name="keywords" content={`Marvel, comics, personajes, superheroes, ${character?.name}`} />
+        </Head>
         <BodySingle>
-        <Card sx={{ marginTop: 10, padding: 3, gap: 10, height: "fit-content" }}>
-        <CardMedia
-            component="img"
-            alt="Personaje"
-            width={400}
-            height={400}
-            image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-        />
-        <CardContent>
-        <Typography gutterBottom variant="h4" component="div" align='center'>
-          {character.name}
-        </Typography>
-        </CardContent>
-
-        <CardContent>
-        <Typography gutterBottom variant="h5" component="div" align='center'>
-          Otros comics de {character.name}
-        </Typography>
-        
-        </CardContent>
-        </Card>
+            <CharacterCard character={character}/>
         </BodySingle>
+        </>
     );
 }
 

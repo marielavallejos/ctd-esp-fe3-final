@@ -43,10 +43,10 @@ export type Comic = {
     stock: number;
     thumbnail: Thumbnail;
     images: Link[] | [];
-    creators: Summary;
-    characters: Summary;
-    stories: Summary;
-    events: Summary;
+    creators: List;
+    characters: List;
+    stories: List;
+    events: List;
 }
 
 export type CharacterResponse = {
@@ -70,94 +70,52 @@ export type Character = {
     name: string;
     description: string | null;
     modified: Date | string;
-    thumbnail: Thumbnail;
     resourceURI: string;
-    comics: Summary;
-    series: Summary;
-    stories: Summary;
-    events: Summary;
     urls: Link[];
+    thumbnail: Thumbnail;
+    comics: List;
+    series: List;
+    stories: List;
+    events: List;
 }
 
-export type Summary = {
+export type TextObjects = {
+    type: string;
+    language: string;
+    text: string;
+}
+
+export type Link = {
+    type: string;
+    url: string;
+}
+
+export type List = {
     available: number;
+    returned: number;
     collectionURI: string;
     items: Item[] | [];
-    returned: number;
+
 }
 
 export type Item = {
     resourceURI: string;
     name: string;
-    type?: "cover" | "interiorStory" | "promo" | string;
-    role?:
-    | "editor"
-    | "writer"
-    | "penciller"
-    | "penciller (cover)"
-    | "colorist"
-    | "inker"
-    | "penciller (cover) "
-    | "letterer"
-    | string;
-}
-
-export type Link = {
-    type: "detail" | "comiclink" | "purchase" | string;
-    url: string;
+    type?: string;
+    role?: string;
 }
 
 export type Date = {
-    type: "onsaleDate" | "focDate" | string;
+    type: string;
     date: string;
 }
 
 export type Price = {
-    type: "printPrice" | string;
+    type: string;
     price: number;
 }
 
 export type Thumbnail  = {
     path: string;
-    extension: "jpg" | string;
-}
-
-export type TextObjects = {
-    type: "issue_solicit_text" | string;
-    language: "en-us" | string;
-    text: string;
-}
-
-export type ICheckout = {
-    customer: Customer;
-    card: Card;
-    order: Order;
-};
-
-export type Card = {
-    number: string;
-    cvc: string;
-    expDate: string;
-    nameOnCard: string;
-}
-
-export type Order = {
-    name: string;
-    image: string;
-    price: number;
-}
-
-export type Address = {
-    address1: string;
-    address2: string | null;
-    city: string;
-    state: string;
-    zipCode: string;
-}
-
-export type Customer = {
-    name: string;
-    lastname: string;
-    email: string;
-    address: Address;
+    extension: string;
 }

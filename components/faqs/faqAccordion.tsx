@@ -19,7 +19,7 @@ interface Props{
             aria-controls={`panel${faq.id}-content`}
             id={`panel${faq.id}-header`}
           >
-            <Typography>{faq.question}</Typography>
+            <Typography sx={{ fontWeight: 'bold' }}>{faq.question}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>{faq.answer}</Typography>
