@@ -1,72 +1,59 @@
 import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
-import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
-import { Controller, useForm } from "react-hook-form"
+import { useFormContext } from "react-hook-form";
+import { CustomInputs } from "../Inputs/CustomInputs"
+import { ErrorMessage } from "@hookform/error-message"
 
-export const PaymentForm = () => {
-    const {control} = useForm()
+const PaymentForm = () => {
+    const {
+        control,
+        formState: { errors },
+      } = useFormContext();
     return(
         <Box
-        sx={{maxWidth:"500px"}}>
-            <Paper>
-                <Typography>
-                    <form>
-                        <Controller
-                        name='card-number'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Número de tarjeta'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                                                <Controller
-                        name='card-name'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Nombre como aparece en la tarjeta'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                        <Controller
-                        name='expire date'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Fecha de expiración'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                        <Controller
-                        name='security code'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Codigo de seguridad'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                    </form>
-                </Typography>
-            </Paper>
+        sx={{maxWidth:"600px", mt:2}}>
+        <CustomInputs
+            name='cardNumber'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Dirección'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="cardNumber"/>
+        </Typography>
+        <CustomInputs
+            name='cardName'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Dirección'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="cardName"/>
+        </Typography>
+        <CustomInputs
+            name='expiryDate'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Dirección'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="expiryDate"/>
+        </Typography>
+        <CustomInputs
+            name='securityCode'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Dirección'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="securityCode"/>
+        </Typography>
         </Box>
     )
 }
+
+export default PaymentForm

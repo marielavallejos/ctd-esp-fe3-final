@@ -1,85 +1,76 @@
 import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
-import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
-import { Controller, useForm } from "react-hook-form"
+import { useFormContext } from "react-hook-form";
+import { CustomInputs } from "../Inputs/CustomInputs";
+import { ErrorMessage } from '@hookform/error-message';
 
-export const DeliveryForm = () => {
-    const {control} = useForm()
+const DeliveryForm = () => {
+    const {control, formState: { errors } } = useFormContext();
     return(
         <Box
-        sx={{maxWidth:"500px"}}>
-            <Paper>
-                <Typography>
-                    <form>
-                        <Controller
-                        name='address'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Dirección'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                                                <Controller
-                        name='flat'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Departamento'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                        <Controller
-                        name='city'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Ciudad'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                        <Controller
-                        name='state'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Provincia'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                        <Controller
-                        name='ZC'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='CP'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                    </form>
-                </Typography>
-            </Paper>
+        sx={{maxWidth:"600px", mt:2}}>
+        <CustomInputs
+            name='address'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Dirección'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="address"/>
+        </Typography>
+        <CustomInputs
+            name='floor'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Piso'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="floor"/>
+        </Typography>
+        <CustomInputs
+            name='apartment'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Deprtamento'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="apartment"/>
+        </Typography>
+        <CustomInputs
+            name='city'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Ciudad'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="city"/>
+        </Typography>
+        <CustomInputs
+            name='province'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Provincia'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="province"/>
+        </Typography>
+        <CustomInputs
+            name='zc'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Código postal'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="zc"/>
+        </Typography>
         </Box>
     )
 }
+
+export default DeliveryForm

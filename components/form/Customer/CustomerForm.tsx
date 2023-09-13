@@ -1,60 +1,48 @@
 import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
-import TextField from "@mui/material/TextField"
+import { ErrorMessage } from '@hookform/error-message';
 import Typography from "@mui/material/Typography"
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useFormContext } from "react-hook-form"
+import React from "react";
+import { CustomInputs } from "../Inputs/CustomInputs";
 
-export const CustomerForm = () => {
-    const {control} = useForm()
+const CustomerForm = () => {
+    const {control, formState:{errors}} = useFormContext()
+    
     return(
         <Box
-        sx={{maxWidth:"500px"}}>
-            <Paper>
-                <Typography>
-                    <form>
-                        <Controller
-                        name='name'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Nombre'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                                                <Controller
-                        name='lastname'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Apellido'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-                                                <Controller
-                        name='email'
-                        control={control}
-                        defaultValue={''}
-                        render={({field}) => 
-                        <TextField
-                        {...field}
-                        type='text'
-                        label='Email'
-                        variant='outlined'
-                        fullWidth
-                        sx={{mb:2}}
-                        />}/>
-
-                    </form>
-                </Typography>
-            </Paper>
+        sx={{maxWidth:"600px", mt:2}}>
+        <CustomInputs
+            name='firstName'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Nombre'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="name"/>
+        </Typography>
+        <CustomInputs
+            name='lastName'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='Apellido'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="lastName"/>
+        </Typography>
+        <CustomInputs
+            name='email'
+            control={control}
+            defaultValue=""
+            type='text'
+            label='E-mail'
+        />
+        <Typography color="red">
+        <ErrorMessage errors={errors} name="email"/>
+        </Typography>
         </Box>
     )
 }
+
+export default CustomerForm

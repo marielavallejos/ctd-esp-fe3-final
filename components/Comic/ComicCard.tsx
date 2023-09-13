@@ -39,7 +39,7 @@ const ComicCard: React.FC<Props> = ({ comic }) => {
         <Typography style={{ textDecoration: 'line-through', marginTop: '25px' }}>Antes ${comic?.oldPrice}</Typography>
         <Typography style={{ color: 'red' }}>{perCent} % OFF</Typography>
         <Typography variant="h5" style={{ marginTop: '25px' }}>${comic?.price}</Typography>
-        <Button style={{ marginTop: '25px' }} variant="contained" disabled={comic?.stock === 0}>{comic?.stock > 0 ? 'COMPRAR' : 'Sin stock disponible'}</Button>
+        <Button style={{ marginTop: '25px' }} variant="contained" disabled={comic?.stock === 0} href={`/checkout/${comic.id}`}>{comic?.stock > 0 ? 'COMPRAR' : 'Sin stock disponible'}</Button>
         <Accordion style={{ marginTop: '25px' }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
