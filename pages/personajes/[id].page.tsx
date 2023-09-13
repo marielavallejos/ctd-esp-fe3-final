@@ -3,7 +3,7 @@ import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import { Character } from 'types/marvelAPI';
 import BodySingle from 'components/layouts/body/single/body-single';
 import Head from 'next/head';
-import CharacterCard from 'dh-marvel/components/Character/CharacterCard';
+import CharacterCard from 'components/Character/CharacterCard';
 interface Props {
     character: Character;
 }

@@ -17,7 +17,7 @@ const PaymentForm = () => {
             control={control}
             defaultValue=""
             type='text'
-            label='Dirección'
+            label='Número de tarjeta'
         />
         <Typography color="red">
         <ErrorMessage errors={errors} name="cardNumber"/>
@@ -27,7 +27,7 @@ const PaymentForm = () => {
             control={control}
             defaultValue=""
             type='text'
-            label='Dirección'
+            label='Nombre como aparece en la tarjeta'
         />
         <Typography color="red">
         <ErrorMessage errors={errors} name="cardName"/>
@@ -37,7 +37,7 @@ const PaymentForm = () => {
             control={control}
             defaultValue=""
             type='text'
-            label='Dirección'
+            label='Vencimiento'
         />
         <Typography color="red">
         <ErrorMessage errors={errors} name="expiryDate"/>
@@ -46,8 +46,8 @@ const PaymentForm = () => {
             name='securityCode'
             control={control}
             defaultValue=""
-            type='text'
-            label='Dirección'
+            type='password'
+            label='CVV'
         />
         <Typography color="red">
         <ErrorMessage errors={errors} name="securityCode"/>

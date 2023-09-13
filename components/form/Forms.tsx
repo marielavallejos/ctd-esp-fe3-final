@@ -46,10 +46,10 @@ const Forms = () => {
                             {currentStep === 2 && <DeliveryForm />}
                             {currentStep === 3 && <PaymentForm />}
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                    {currentStep > 1 && <Button variant="outlined" color="inherit" disabled={currentStep === 1} onClick={handleBack} sx={{ mr: 1 }}>Volver</Button>}
-                    {currentStep < 3 && <Button variant="outlined" color="inherit" onClick={handleNext} sx={{ mr: 1 }}>Siguiente</Button>}
-                    {currentStep === 3 && <Button variant="outlined" color="inherit" type="submit" onClick={handleNext} sx={{ mr: 1 }}>Enviar</Button>}
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
+                    <Button variant="outlined" disabled={currentStep === 1} onClick={handleBack} sx={{ color: currentStep === 1 ? 'text.primary' : 'grey.500' }}>Volver</Button>
+                    {currentStep < 3 && <Button variant="contained" onClick={handleNext} sx={{ mr: 1 }}>Siguiente</Button>}
+                    {currentStep === 3 && <Button variant="contained" type="submit" onClick={handleNext} sx={{ mr: 1 }} >Enviar</Button>}
                     </Box>
                 </form>
         </Box>

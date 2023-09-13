@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { GetServerSideProps } from "next";
 import { ComicResponse } from 'types/marvelAPI';
 import { getComics } from 'services/marvel/marvel.service';
-import ComicGrid from 'dh-marvel/components/Comic/ComicGrid';
+import ComicGrid from 'components/Comic/ComicGrid';
 interface Props {
     comics: ComicResponse;
 }

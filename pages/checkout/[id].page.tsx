@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Container from '@mui/material/Container';
-import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout';
-import { getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
-import ComicFormCard from 'dh-marvel/components/Comic/ComicFormCard';
-import CustomerForm from 'dh-marvel/components/form/Customer/CustomerForm';
+import LayoutCheckout from 'components/layouts/layout-checkout';
+import { getComic, getComics } from 'services/marvel/marvel.service';
+import ComicFormCard from 'components/Comic/ComicFormCard';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import Forms from "components/form/Forms"
 import { Comic, ComicResponse } from 'types/marvelAPI';
-import DeliveryForm from 'dh-marvel/components/form/Delivery/DeliveryForm';
-import PaymentForm from 'dh-marvel/components/form/Payment/PaymentForm';
-import { schema } from 'dh-marvel/components/Rules';
+import { schema } from 'components/Rules';
+import Box from '@mui/material/Box';
 
 
 interface Props {
@@ -30,14 +27,16 @@ const CheckoutPage: NextPage<Props> = ({ comic }) => {
   });
 
   return (
-    <LayoutCheckout>
-      <Container maxWidth="md">
+  <Container maxWidth="md">
+    <Box display="flex">
         <ComicFormCard comic={comic} />
-        <FormProvider {...methods} >
-          <Forms/>
+      <Box flex="2" marginLeft="16px">
+        <FormProvider {...methods}>
+          <Forms />
         </FormProvider>
-      </Container>
-    </LayoutCheckout>
+      </Box>
+    </Box>
+  </Container>
   );
 };
 
@@ -63,6 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+(CheckoutPage as any).Layout = LayoutCheckout;
 export default CheckoutPage;
 
 

@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { getComic, getComics } from '../../services/marvel/marvel.service';
 import { Comic, ComicResponse } from "types/marvelAPI";
 import Head from "next/head";
-import ComicCard from 'dh-marvel/components/Comic/ComicCard';
+import ComicCard from 'components/Comic/ComicCard';
 
 interface Props {
   comic: Comic;

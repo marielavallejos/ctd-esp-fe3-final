@@ -7,8 +7,7 @@ import { ErrorMessage } from '@hookform/error-message';
 const DeliveryForm = () => {
     const {control, formState: { errors } } = useFormContext();
     return(
-        <Box
-        sx={{maxWidth:"600px", mt:2}}>
+        <Box sx={{maxWidth:"600px", mt:2}}>
         <CustomInputs
             name='address'
             control={control}
@@ -19,25 +18,27 @@ const DeliveryForm = () => {
         <Typography color="red">
         <ErrorMessage errors={errors} name="address"/>
         </Typography>
-        <CustomInputs
-            name='floor'
-            control={control}
-            defaultValue=""
-            type='text'
-            label='Piso'
-        />
-        <Typography color="red">
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <CustomInputs
+          name='apartment'
+          control={control}
+          defaultValue=""
+          type='text'
+          label='Deprtamento'
+          />
+          <Typography color="red">
+          <ErrorMessage errors={errors} name="apartment"/>
+          </Typography>
+          <CustomInputs
+          name='floor'
+          control={control}
+          defaultValue=""
+          type='text'
+          label='Piso'
+          />
+        </Box>
+<Typography color="red">
         <ErrorMessage errors={errors} name="floor"/>
-        </Typography>
-        <CustomInputs
-            name='apartment'
-            control={control}
-            defaultValue=""
-            type='text'
-            label='Deprtamento'
-        />
-        <Typography color="red">
-        <ErrorMessage errors={errors} name="apartment"/>
         </Typography>
         <CustomInputs
             name='city'
