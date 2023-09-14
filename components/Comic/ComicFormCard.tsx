@@ -13,18 +13,18 @@ interface Props {
 const ComicFormCard: React.FC<Props> = ({ comic }) => {
     return (
         <Grid item xs={6} sm={4} md={3} xl={2} mb={2}>
-            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '500px' }}>
                 <CardMedia
                     component="img"
                     alt={comic?.title}
-                    height={200}
+                    height={400}
                     image={`${comic?.thumbnail?.path}.${comic.thumbnail.extension}`}
                 />
                 <CardContent sx={{ flex: 1 }}>
                     <Typography gutterBottom variant="h6" component="div" align='center'>
                         {comic?.title}
                     </Typography>
-                    <Typography gutterBottom variant="h6" component="div" align='center'>
+                    <Typography style={{ color: 'blue' }} gutterBottom variant="h6" component="div" align='center' >
                         Precio ${comic?.price}
                     </Typography>
                 </CardContent>

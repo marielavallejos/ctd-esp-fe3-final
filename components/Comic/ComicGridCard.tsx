@@ -28,7 +28,7 @@ const ComicGridCard: React.FC<Props> = ({ comic }) => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-between' }} >
-                    <Button size="small" variant="contained" href={`/checkout/${comic.id}`} disabled={comic?.stock === 0}>
+                    <Button size="small" variant="contained"  href={`/checkout/${comic.id}`} disabled={comic?.stock === 0}>
                         <Typography variant="body2" sx={{ mt: '5px', ml: '5px' }}>
                             COMPRAR
                         </Typography>

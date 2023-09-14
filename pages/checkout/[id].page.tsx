@@ -4,11 +4,9 @@ import Container from '@mui/material/Container';
 import LayoutCheckout from 'components/layouts/layout-checkout';
 import { getComic, getComics } from 'services/marvel/marvel.service';
 import ComicFormCard from 'components/Comic/ComicFormCard';
-import { FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import Forms from "components/form/Forms"
 import { Comic, ComicResponse } from 'types/marvelAPI';
-import { schema } from 'components/Rules';
 import Box from '@mui/material/Box';
 
 
@@ -17,23 +15,14 @@ interface Props {
 }
 
 
-const CheckoutPage: NextPage<Props> = ({ comic }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  
-  // type DataForm = yup.InferType<typeof schema>;
-  const methods = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {},
-  });
+const CheckoutPage: NextPage<Props> = ({ comic}:Props) => {
 
   return (
   <Container maxWidth="md">
     <Box display="flex">
         <ComicFormCard comic={comic} />
       <Box flex="2" marginLeft="16px">
-        <FormProvider {...methods}>
-          <Forms />
-        </FormProvider>
+      <Forms comic ={comic}/>
       </Box>
     </Box>
   </Container>

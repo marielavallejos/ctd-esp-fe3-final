@@ -1,57 +1,139 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState } from "react";
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useFormContext } from "react-hook-form";
 import CustomerForm from "./Customer/CustomerForm";
 import DeliveryForm from "./Delivery/DeliveryForm";
 import PaymentForm from "./Payment/PaymentForm";
 import StepperForm from '../Stepper/StepperForm';
+import { Comic } from 'types/marvelAPI';
+import { checkoutPayment } from 'dh-marvel/services/checkout/checkout.service';
 
-const steps = ['Datos del Cliente', 'Dirección de Envío', 'Información de Pago'];
+interface Props {
+    comic: Comic
+}
 
-const Forms = () => {
-    const {handleSubmit} = useFormContext();
-    const [currentStep, setCurrentStep] = useState(1);
-    const onSubmit = (data:any) => console.log(data)
+const initialData = {
+    customerData: {
+        name: "",
+        lastName: "",
+        email: "",
+    },
+    deliveryData: {
+        address: "",
+        apartment: "",
+        city: "",
+        province: "",
+        zipCode: "",
+    },
+    paymentData: {
+        cardNumber: "",
+        cardName: "",
+        expiryDate: "",
+        securityCode: "",
+    },
+    order: {
+        name: "",
+        image: "",
+        price: ""
+    }
+}
+
+const initialCheckoutData = {
+    customer: {
+        name: "",
+        lastname: "",
+        email: "",
+        address: {
+            address1: "",
+            address2: "",
+            city: "",
+            state: "",
+            zipCode: "",
+        },
+    },
+    card: {
+        number: "",
+        cvc: "",
+        expDate: "",
+        nameOnCard: "",
+    },
+    order: {
+        name: "",
+        image: "",
+        price: 0,
+    },
+}
+
+
+const Forms = ({comic}: Props) => {
+    const [data, setData] = useState(initialData);  
+
+    const handleData = (newData: any) => {
+        setData((prevData) => ({ ...prevData, ...newData }));
+    };
+    const [currentStep, setCurrentStep] = useState(0);
 
     const handleNext = () => {
-        if(currentStep >= 3){
+        if(currentStep >= 2){
             return;
         } else{
             setCurrentStep(currentStep+1);
         }
     };
 
-    const handleBack = () => {
-        if(currentStep <= 1){
+    const handlePrev = () => {
+        if(currentStep <= 0){
             return;
         } else{
             setCurrentStep(currentStep-1);
         }
     };
 
-    handleSubmit(onSubmit)
+    const submitData = async ({paymentData}:any) => {
+        const dataCkeckout = {
+            customer: {
+                name: data.customerData.name,
+                lastname: data.customerData.lastName,
+                email: data.customerData.email,
+                address: {
+                    address1: data.deliveryData.address,
+                    address2: data.deliveryData.apartment,
+                    city: data.deliveryData.city,
+                    state: data.deliveryData.province,
+                    zipCode: data.deliveryData.zipCode,
+                },
+            },
+            card: {
+                number: paymentData.cardNumber,
+                cvc: paymentData.securityCode,
+                expDate: paymentData.expiryDate,
+                nameOnCard: paymentData.cardName,
+            },
+            order: {
+                name: comic.title,
+                image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+                price: comic.price,
+            },
+        }
+
+        const response = await checkoutPayment(dataCkeckout);
+        try{
+            console.log('FINAL SUBMIT', response);
+        } catch{
+            // agregar snackbar
+            console.log('FINAL SUBMIT ERROR', response);
+            console.log('ERROR', response.error);
+            console.log('MESSAGE', response.message);
+        }
+    }
 
     return(
         <>
-        <Box>
+        <Box sx={{ my: "40px", width: "500px", ml:"2%" }}>
             <StepperForm activeStep={currentStep}/>
-        </Box>
-        <Box sx={{ my: "40px"}}>
-                <form >
-                    <Typography sx={{ mt: 2, mb: 1 }}>
-                            {currentStep === 1 && <CustomerForm/>}
-                            {currentStep === 2 && <DeliveryForm />}
-                            {currentStep === 3 && <PaymentForm />}
-                    </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
-                    <Button variant="outlined" disabled={currentStep === 1} onClick={handleBack} sx={{ color: currentStep === 1 ? 'text.primary' : 'grey.500' }}>Volver</Button>
-                    {currentStep < 3 && <Button variant="contained" onClick={handleNext} sx={{ mr: 1 }}>Siguiente</Button>}
-                    {currentStep === 3 && <Button variant="contained" type="submit" onClick={handleNext} sx={{ mr: 1 }} >Enviar</Button>}
-                    </Box>
-                </form>
+            {currentStep === 0 && <CustomerForm data={data.customerData} updateData={handleData} handleNext={() => handleNext()}/>}
+            {currentStep === 1 && <DeliveryForm data={data.deliveryData} updateData={handleData} handleNext={() => handleNext()} handlePrev={() => handlePrev()}/>}
+            {currentStep === 2 && <PaymentForm data={data.paymentData} handlePrev={() => handlePrev()} submitData={(paymentData) => submitData({paymentData})}/>}
         </Box>
         </>
 )
