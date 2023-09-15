@@ -1,5 +1,5 @@
 import BodySingle from 'components/layouts/body/single/body-single'
-import FaqAccordion from 'dh-marvel/components/faqs/FaqAccordion'
+import FaqAccordion from '../../components/faqs/FaqAccordion'
 import { NextPage } from 'next'
 import { FaqsType } from 'types/faqs'
 
