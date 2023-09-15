@@ -7,6 +7,7 @@ import PaymentForm from "./Payment/PaymentForm";
 import StepperForm from '../Stepper/StepperForm';
 import { Comic } from 'types/marvelAPI';
 import { checkoutPayment } from 'dh-marvel/services/checkout/checkout.service';
+import FormSnackbar from '../Snackbar/FormSnackbar';
 
 interface Props {
     comic: Comic
@@ -64,7 +65,6 @@ const initialCheckoutData = {
     },
 }
 
-
 const Forms = ({comic}: Props) => {
     const [data, setData] = useState(initialData);  
 
@@ -72,6 +72,7 @@ const Forms = ({comic}: Props) => {
         setData((prevData) => ({ ...prevData, ...newData }));
     };
     const [currentStep, setCurrentStep] = useState(0);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     const handleNext = () => {
         if(currentStep >= 2){
@@ -119,8 +120,12 @@ const Forms = ({comic}: Props) => {
         const response = await checkoutPayment(dataCkeckout);
         try{
             console.log('FINAL SUBMIT', response);
+            if (response.error) {
+                setSnackbarOpen(true);
+              }
+
         } catch{
-            // agregar snackbar
+
             console.log('FINAL SUBMIT ERROR', response);
             console.log('ERROR', response.error);
             console.log('MESSAGE', response.message);
@@ -134,6 +139,7 @@ const Forms = ({comic}: Props) => {
             {currentStep === 0 && <CustomerForm data={data.customerData} updateData={handleData} handleNext={() => handleNext()}/>}
             {currentStep === 1 && <DeliveryForm data={data.deliveryData} updateData={handleData} handleNext={() => handleNext()} handlePrev={() => handlePrev()}/>}
             {currentStep === 2 && <PaymentForm data={data.paymentData} handlePrev={() => handlePrev()} submitData={(paymentData) => submitData({paymentData})}/>}
+            <FormSnackbar open={snackbarOpen} handleClose={() => setSnackbarOpen(false)} />
         </Box>
         </>
 )

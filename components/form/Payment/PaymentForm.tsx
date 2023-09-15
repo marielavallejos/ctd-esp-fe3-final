@@ -7,6 +7,9 @@ import schema from "components/Rules/paymentRules";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@mui/material/Button";
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
 
 interface Props {
     data: any,
@@ -15,6 +18,7 @@ interface Props {
 }
 
 const PaymentForm = ({ data, handlePrev, submitData }: Props) => {
+    
     type DataForm = yup.InferType<typeof schema>
     const {
         control,
@@ -23,10 +27,18 @@ const PaymentForm = ({ data, handlePrev, submitData }: Props) => {
         handleSubmit,
         getValues,
     } = useForm<DataForm>({ resolver: yupResolver(schema), defaultValues: {} });
+
+
     const onSubmit = async (data: any) => {
         const dataValues = getValues();
         submitData(dataValues);
     }
+
+    const handleNextClick = () => {
+        const dataValues = getValues();
+        onSubmit(dataValues); 
+    };
+
 
     return(
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,8 +86,8 @@ const PaymentForm = ({ data, handlePrev, submitData }: Props) => {
         </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
-        <Button variant="contained" onClick={handlePrev} sx={{ mr: 1 }}>Atrás</Button>
-        <Button variant="contained" type="submit" sx={{ mr: 1 }}>Siguiente</Button>
+        <Button variant="outlined" onClick={handlePrev} sx={{ mr: 1 }}>Atrás</Button>
+        <Button variant="contained" type="submit" onClick={handleNextClick} sx={{ mr: 1 }}>Siguiente</Button>
         </Box>
         </form>
     )

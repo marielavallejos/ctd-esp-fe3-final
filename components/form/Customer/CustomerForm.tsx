@@ -68,7 +68,7 @@ const CustomerForm = ({ data, updateData, handleNext }:Props) => {
         </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
-        <Button variant="contained" sx={{ mr: 1, color:'grey.500' }}>Atrás</Button>
+        <Button variant="outlined" sx={{ mr: 1, color:'grey.500' }}>Atrás</Button>
         <Button variant="contained" type="submit" sx={{ mr: 1 }}>Siguiente</Button>
         </Box>
         </form>

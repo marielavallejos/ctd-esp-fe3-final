@@ -4,16 +4,13 @@ import Container from '@mui/material/Container';
 import LayoutCheckout from 'components/layouts/layout-checkout';
 import { getComic, getComics } from 'services/marvel/marvel.service';
 import ComicFormCard from 'components/Comic/ComicFormCard';
-
 import Forms from "components/form/Forms"
 import { Comic, ComicResponse } from 'types/marvelAPI';
 import Box from '@mui/material/Box';
 
-
 interface Props {
   comic: Comic;
 }
-
 
 const CheckoutPage: NextPage<Props> = ({ comic}:Props) => {
 

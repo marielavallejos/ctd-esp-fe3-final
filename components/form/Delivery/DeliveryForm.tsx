@@ -87,7 +87,7 @@ const DeliveryForm = ({ data, updateData, handleNext, handlePrev }:Props) => {
         </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
-        <Button variant="contained" onClick={handlePrev} sx={{ mr: 1 }}>Atrás</Button>
+        <Button variant="outlined" onClick={handlePrev} sx={{ mr: 1 }}>Atrás</Button>
         <Button variant="contained" type="submit" sx={{ mr: 1 }}>Siguiente</Button>
         </Box>
         </form>
