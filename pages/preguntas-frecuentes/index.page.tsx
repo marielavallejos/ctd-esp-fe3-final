@@ -1,13 +1,13 @@
-import BodySingle from 'components/layouts/body/single/body-single'
-import FaqAccordion from 'components/faqs/FaqAccordion'
+// import BodySingle from 'components/layouts/body/single/body-single'
+// import FaqAccordion from 'components/faqs/FaqAccordion'
 
-import { NextPage } from 'next'
-import { FaqsType } from 'types/faqs'
+// import { NextPage } from 'next'
+// import { FaqsType } from 'types/faqs'
 
 
-interface Props{
-  faqs: FaqsType[]
-}
+// interface Props{
+//   faqs: FaqsType[]
+// }
 
 // const FaqsPage: NextPage<Props> = ({ faqs }) => {
 
