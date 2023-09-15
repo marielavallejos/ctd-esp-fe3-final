@@ -4,6 +4,7 @@ import { getComic, getComics } from '../../services/marvel/marvel.service';
 import { Comic, ComicResponse } from "types/marvelAPI";
 import Head from "next/head";
 import ComicCard from 'components/Comic/ComicCard';
+import { useRouter } from 'next/router';
 
 
 
@@ -12,6 +13,13 @@ interface Props {
 }
 
 const ComicPage: NextPage<Props> = ({ comic }) => {
+  const router = useRouter();
+
+  if (!comic) {
+    // Redirige al usuario a la página de inicio ("/" en este ejemplo)
+    router.push('/');
+    return null; // Puedes retornar null o algún otro contenido temporal mientras se redirige
+  }
   return (
     <>
       <Head>
