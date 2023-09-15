@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -6,20 +6,31 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useRouter } from 'next/router';
 import CardMedia from '@mui/material/CardMedia';
+import { Checkout } from 'types/checkout.type';
+import Button from '@mui/material/Button';
 
 const OrderConfirmationPage = () => {
   const router = useRouter();
-  const orderInfo = JSON.parse(localStorage.getItem('orderInfo') || '');
+  const [orderInfo, setOrderInfo] = useState<Checkout>();
 
-  if (!orderInfo) {
-    if (typeof window !== 'undefined') {
-      router.push('/');
-    }
-    return null;
-  }
+  useEffect(() => {
+    const orderInfoStored = localStorage.getItem('orderInfo');
+
+    if (orderInfoStored) {
+      setOrderInfo(JSON.parse(orderInfoStored));
+    } else{
+        router.push('/');
+      }
+  }, [router]);
+
+  const handleGoIndex = () => {
+    router.push('/');
+}
 
   return (
     <Container maxWidth="md" style={{ marginTop: '40px' }}>
+      {orderInfo ?
+      <>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Box bgcolor="#4caf50" width="100%" p={2} mb={2} textAlign="center">
           <Typography variant="h4" style={{ color: '#fff' }}>
@@ -68,6 +79,11 @@ const OrderConfirmationPage = () => {
           </Grid>
         </Grid>
       </Box>
+      <Button size="small" variant="outlined" onClick={handleGoIndex}>Volver al inicio</Button>
+      </>
+      : <></>
+}
+
     </Container>
   );
 };
