@@ -5,6 +5,8 @@ import { Comic, ComicResponse } from "types/marvelAPI";
 import Head from "next/head";
 import ComicCard from 'components/Comic/ComicCard';
 
+
+
 interface Props {
   comic: Comic;
 }
