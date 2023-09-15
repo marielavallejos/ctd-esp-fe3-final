@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { getComic, getComics } from '../../services/marvel/marvel.service';
 import { Comic, ComicResponse } from "types/marvelAPI";
@@ -15,9 +15,14 @@ interface Props {
 const ComicPage: NextPage<Props> = ({ comic }) => {
   const router = useRouter();
 
+  useEffect(() => {
+    if (!comic) {
+      // Redirige al usuario a la página de inicio ("/" en este ejemplo) en el lado del cliente
+      router.push('/');
+    }
+  }, [comic, router]);
+
   if (!comic) {
-    // Redirige al usuario a la página de inicio ("/" en este ejemplo)
-    router.push('/');
     return null; // Puedes retornar null o algún otro contenido temporal mientras se redirige
   }
   return (
