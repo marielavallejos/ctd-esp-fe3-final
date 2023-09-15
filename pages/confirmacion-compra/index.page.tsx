@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import CardMedia from '@mui/material/CardMedia';
 import { Checkout } from 'types/checkout.type';
 import Button from '@mui/material/Button';
+import LayoutCheckout from 'components/layouts/layout-checkout';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const OrderConfirmationPage = () => {
   const router = useRouter();
@@ -81,13 +83,12 @@ const OrderConfirmationPage = () => {
       </Box>
       <Button size="small" variant="outlined" onClick={handleGoIndex}>Volver al inicio</Button>
       </>
-      : <></>
+      : <LinearProgress color="inherit" />
 }
-
     </Container>
   );
 };
-
+(OrderConfirmationPage as any).Layout = LayoutCheckout;
 export default OrderConfirmationPage;
 
 

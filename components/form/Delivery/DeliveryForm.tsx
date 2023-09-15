@@ -5,7 +5,7 @@ import { CustomInputs } from "../Inputs/CustomInputs";
 import { ErrorMessage } from '@hookform/error-message';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import schema from "dh-marvel/components/Rules/deliveryRules";
+import schema from "components/Rules/deliveryRules";
 import Button from "@mui/material/Button";
 
 

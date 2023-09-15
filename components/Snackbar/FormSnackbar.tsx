@@ -21,7 +21,7 @@ export default function FormSnackbar({ open, handleClose }: FormSnackbarProps) {
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          Los datos no son válidos!
+          ¡Los datos no son válidos!
         </Alert>
       </Snackbar>
     </Stack>

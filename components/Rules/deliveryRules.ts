@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-// Creamos el schema
+
 const schema = yup.object({
   address: yup.string().required("Este campo es requerido").min(2, "Mínimo 3 caracteres").max(40, "Máximo 40 caracteres"),
   apartment: yup.string().notRequired(),
