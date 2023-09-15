@@ -5,9 +5,9 @@ import { NextPage } from 'next'
 import { FaqsType } from 'types/faqs'
 
 
-// interface Props{
-//   faqs: FaqsType[]
-// }
+interface Props{
+  faqs: FaqsType[]
+}
 
 // const FaqsPage: NextPage<Props> = ({ faqs }) => {
 
@@ -33,3 +33,13 @@ import { FaqsType } from 'types/faqs'
 // }
 
 // export default FaqsPage
+
+import React from 'react'
+
+const FaqsPage = () => {
+  return (
+    <div>FaqPage</div>
+  )
+}
+
+export default FaqsPage
