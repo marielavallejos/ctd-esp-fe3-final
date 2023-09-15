@@ -1,65 +1,80 @@
 import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import { useRouter } from 'next/router';
+import CardMedia from '@mui/material/CardMedia';
 
-const ConfirmacionCompraPage = () => {
+const OrderConfirmationPage = () => {
   const router = useRouter();
+  const orderInfo = JSON.parse(localStorage.getItem('orderInfo') || '');
 
-  if (!router.query.comicTitle) {
+  if (!orderInfo) {
     if (typeof window !== 'undefined') {
       router.push('/');
     }
     return null;
   }
 
-  const comicTitle = router.query.comicTitle as string;
-  const comicImage = router.query.comicImage as string;
-  const customerData = {
-    name: router.query.name as string,
-    lastName: router.query.lastName as string,
-    email: router.query.email as string,
-  };
-  const deliveryData = {
-    address: router.query.address as string,
-    apartment: router.query.apartment as string,
-    city: router.query.city as string,
-    province: router.query.province as string,
-    zipCode: router.query.zipCode as string,
-  };
-  const price = router.query.price as string;
-
   return (
-    <Container maxWidth="md">
-      <Box mt={4}>
-        <Typography variant="h4" color="primary">
-          ¡Que disfrutes tu compra!
-        </Typography>
-        <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
-          <Typography variant="h5">Detalles del cómic</Typography>
-          {/* <img src={comicImage} alt={comicTitle} style={{ maxWidth: '100%' }} /> */}
-          <Typography variant="h6">{comicTitle}</Typography>
-          <Typography variant="body1">Precio: ${price}</Typography>
-        </Paper>
-        <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
-          <Typography variant="h5">Datos personales</Typography>
-          <Typography variant="body1">Nombre: {customerData.name} {customerData.lastName}</Typography>
-          <Typography variant="body1">Email: {customerData.email}</Typography>
-        </Paper>
-        <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
-          <Typography variant="h5">Dirección de entrega</Typography>
-          <Typography variant="body1">Dirección: {deliveryData.address}</Typography>
-          <Typography variant="body1">Apartamento: {deliveryData.apartment}</Typography>
-          <Typography variant="body1">Ciudad: {deliveryData.city}</Typography>
-          <Typography variant="body1">Provincia: {deliveryData.province}</Typography>
-          <Typography variant="body1">Código postal: {deliveryData.zipCode}</Typography>
-        </Paper>
+    <Container maxWidth="md" style={{ marginTop: '40px' }}>
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <Box bgcolor="#4caf50" width="100%" p={2} mb={2} textAlign="center">
+          <Typography variant="h4" style={{ color: '#fff' }}>
+            ¡Que disfrutes tu compra!
+          </Typography>
+        </Box>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Box display="flex" flexDirection="column" alignItems="center" style={{ height: '100%' }}>
+              <Typography variant="h5" gutterBottom>
+                Información del cómic:
+              </Typography>
+              <CardMedia
+                            component="img"
+                            alt={orderInfo?.order.name}
+                            image={orderInfo?.order.image}
+                            sx={{maxHeight: '200px'}}
+                        />
+              <Typography variant="h6">{orderInfo?.order.name}</Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} style={{ padding: '16px', height: '100%' }}>
+              <Typography variant="h5" gutterBottom>
+                Datos personales:
+              </Typography>
+              <Typography variant="subtitle1">Nombre: {orderInfo?.customer.name} {orderInfo?.customer.lastname}</Typography>
+              <Typography variant="subtitle1">Correo electrónico: {orderInfo?.customer.email}</Typography>
+
+              <Typography variant="h5" gutterBottom style={{ marginTop: '16px' }}>
+                Dirección de entrega:
+              </Typography>
+              <Typography variant="subtitle1">Dirección: {orderInfo?.customer.address.address1}</Typography>
+              <Typography variant="subtitle1">Apartamento: {orderInfo?.customer.address.address2}</Typography>
+              <Typography variant="subtitle1">Ciudad: {orderInfo?.customer.address.city}</Typography>
+              <Typography variant="subtitle1">Provincia: {orderInfo?.customer.address.state}</Typography>
+              <Typography variant="subtitle1">Código postal: {orderInfo?.customer.address.zipCode}</Typography>
+
+              <Typography variant="h5" gutterBottom style={{ marginTop: '16px' }}>
+                Precio pagado por el cómic:
+              </Typography>
+              <Typography variant="subtitle1"> ${orderInfo?.order.price}</Typography>
+            </Paper>
+          </Grid>
+        </Grid>
       </Box>
     </Container>
   );
 };
 
-export default ConfirmacionCompraPage;
+export default OrderConfirmationPage;
+
+
+
+
 

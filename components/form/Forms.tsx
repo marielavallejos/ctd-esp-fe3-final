@@ -8,6 +8,7 @@ import StepperForm from '../Stepper/StepperForm';
 import { Comic } from 'types/marvelAPI';
 import { checkoutPayment } from 'dh-marvel/services/checkout/checkout.service';
 import FormSnackbar from '../Snackbar/FormSnackbar';
+import router from 'next/router';
 
 interface Props {
     comic: Comic
@@ -91,6 +92,7 @@ const Forms = ({comic}: Props) => {
     };
 
     const submitData = async ({paymentData}:any) => {
+        try{
         const dataCkeckout = {
             customer: {
                 name: data.customerData.name,
@@ -118,19 +120,37 @@ const Forms = ({comic}: Props) => {
         }
 
         const response = await checkoutPayment(dataCkeckout);
-        try{
-            console.log('FINAL SUBMIT', response);
-            if (response.error) {
-                setSnackbarOpen(true);
-              }
-
-        } catch{
-
-            console.log('FINAL SUBMIT ERROR', response);
-            console.log('ERROR', response.error);
-            console.log('MESSAGE', response.message);
+        if (response.error) {
+            console.error('Error al procesar la compra:', response.message);
+            setSnackbarOpen(true);
+            return;
+          }
+    
+          // La respuesta no tiene errores, guarda la información de la compra en el localStorage
+          localStorage.setItem('orderInfo', JSON.stringify(dataCkeckout));
+    
+          // Redirecciona a la página de confirmación de compra
+          router.push('/confirmacion-compra');
+        } catch (error) {
+          console.error('Error al procesar la compra:', error);
         }
-    }
+      };
+
+
+
+    //     try{
+    //         console.log('FINAL SUBMIT', response);
+    //         if (response.error) {
+    //             setSnackbarOpen(true);
+    //           }
+
+    //     } catch{
+
+    //         console.log('FINAL SUBMIT ERROR', response);
+    //         console.log('ERROR', response.error);
+    //         console.log('MESSAGE', response.message);
+    //     }
+    // }
 
     return(
         <>
