@@ -1,14 +1,17 @@
 import type { NextPage } from 'next';
-import BodySingle from "components/layouts/body/single/body-single";
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { GetServerSideProps } from "next";
+
+
+
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
+import { getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { ComicResponse } from 'types/marvelAPI';
-import { getComics } from 'services/marvel/marvel.service';
-import ComicGrid from 'components/Comic/ComicGrid';
+import ComicGrid from 'dh-marvel/components/Comic/ComicGrid';
 interface Props {
     comics: ComicResponse;
 }

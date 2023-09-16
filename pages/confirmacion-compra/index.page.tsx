@@ -35,7 +35,7 @@ const OrderConfirmationPage = () => {
       <>
       <Box display="flex" flexDirection="column" alignItems="center">
         <Box bgcolor="#4caf50" width="100%" p={2} mb={2} textAlign="center">
-          <Typography variant="h4" style={{ color: '#fff' }}>
+          <Typography variant="h4" style={{ color: '#fff', marginBottom: '10px' }}>
             ¡Que disfrutes tu compra!
           </Typography>
         </Box>
@@ -68,7 +68,7 @@ const OrderConfirmationPage = () => {
                 Dirección de entrega:
               </Typography>
               <Typography variant="subtitle1">Dirección: {orderInfo?.customer.address.address1}</Typography>
-              <Typography variant="subtitle1">Apartamento: {orderInfo?.customer.address.address2}</Typography>
+              <Typography variant="subtitle1">Departamento: {orderInfo?.customer.address.address2}</Typography>
               <Typography variant="subtitle1">Ciudad: {orderInfo?.customer.address.city}</Typography>
               <Typography variant="subtitle1">Provincia: {orderInfo?.customer.address.state}</Typography>
               <Typography variant="subtitle1">Código postal: {orderInfo?.customer.address.zipCode}</Typography>
@@ -81,7 +81,11 @@ const OrderConfirmationPage = () => {
           </Grid>
         </Grid>
       </Box>
-      <Button size="small" variant="outlined" onClick={handleGoIndex}>Volver al inicio</Button>
+      <Box display="flex" justifyContent="center" width="100%" marginTop={2}>
+                <Button size="small" variant="outlined" onClick={handleGoIndex}>
+                  Volver al inicio
+                </Button>
+              </Box>
       </>
       : <LinearProgress color="inherit" />
 }

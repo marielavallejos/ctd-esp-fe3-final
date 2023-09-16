@@ -1,4 +1,4 @@
-import BodySingle from 'components/layouts/body/single/body-single'
+
 import { NextPage } from 'next'
 import { FaqsType } from 'types/faqs'
 import Accordion from '@mui/material/Accordion'
@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; 
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single'
 
 
 interface Props{
